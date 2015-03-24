@@ -1,0 +1,360 @@
+/*
+Theme Name: HadeSoft
+Theme URI: http://hadesoft.io/
+Author: HadeSoft
+Author URI: http://hadesoft.io/
+Description: This is the template used for hadesbroadband
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: hadesoft
+Text Domain: HadeSoft
+*/
+@import "reset.css"
+
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@font-face {
+	font-family: 'Samsung';
+	src: url(font/SamsungImagination.otf);
+
+}
+
+html {
+	background: url(images/logoRemovedGW@.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+body {
+	font-family: "Source Sans Pro";
+	color: #353535;
+	font-size: 25px;
+}
+
+body>header {
+	height: 120px;
+	background-color: white;
+	width: 100%;
+}
+
+body>header img {
+	height: 75px;
+	padding: 23px 0 0 35px;
+}
+
+footer {
+	font-family: Inconsolata;
+	font-size: 0.7em;
+	background-color: #1F1F1F;
+	width: auto;
+	height: 200px;
+	bottom: 0;
+	padding: 3px 0 0 130px;
+	color: white;
+}
+
+h1 {
+	font-size: 5em;
+	font-weight: 700;
+	color: white;
+}
+
+h2 {
+	font-size: 3.5em;
+	font-weight: 700;
+	margin: 0;
+}
+
+h3 {
+	font-size: 2.3em;
+	font-weight: 700;
+}
+
+h4 {
+	font-family: Samsung;
+	font-size: 1em;
+	font-weight: 700;
+	margin: 0;
+}
+
+h5 {
+	font-family: Samsung;
+	font-size: 1em;
+	font-weight: 400;
+	margin: 15px 0 0 0;
+}
+
+h6 {
+	font-size: 1.3em;
+	margin: 0;
+	color: white;
+}
+
+
+.titleArea {
+	height: 730px;
+	width: 100%;
+}
+
+#titleBox {
+	width: 940px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+#titleBox h1 {
+	margin: 270px auto 0 auto;
+	height: 120px;
+	width: 930px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+
+
+.projectArea {
+	height: 1050px;
+	width: 100%;
+	background-color: white;
+}
+
+#projectBox {
+	width: 1500px;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+	padding: 120px 0 0 0;
+}
+
+#projectBox h4 {
+	margin: 0 0 100px 0;
+}
+
+.projectHolder {
+	vertical-align: top;
+}
+
+.projectHolder img {
+	height: auto;
+	max-width: 120px;
+	z-index: 20;
+	position: absolute;
+}
+
+.smallThumb img {
+	margin: 35px 0 0 -50px;
+}
+
+.largeThumb img {
+	margin-left: -60px;
+	margin-top: 30px;
+}
+
+.project {
+	width: 210px;
+	height: 210px;
+	background-color: #CCCAE7;
+	display: inline-block;
+	margin: 0 80px 0 80px;
+	border-radius: 105px;
+}
+
+.circle {
+	width: 180px;
+	height: 180px;
+	background-color: white;
+	display: block;
+	-moz-border-radius: 80px;
+	-webkit-border-radius: 80px;
+	border-radius: 90px;
+	margin: 15px 0 0 15px;
+}
+
+
+
+.projectDesc {
+	width: 210px;
+	margin: 5px 80px 0 80px;
+	display: inline-block;
+	position: relative;
+	height: 430px;
+	padding-top: 5px;
+	vertical-align: top;
+}
+
+.projectDesc section {
+	width: auto;
+	display: inline-block;
+}
+
+.projectDesc a {
+	text-decoration: none;
+	color: inherit;
+	width: 100%;
+	display: block;
+}
+
+.projectDesc h5 {
+	width: auto;
+	display: inline-block;
+}
+
+.projectDesc h5::after {
+	content: '';
+	height: 3px;
+	width: 80%;
+	position: relative;
+	margin: 0;
+	z-index: 1;
+	bottom: -5px;
+	left: 10%;
+	display: block;
+}
+
+.projectDesc p {
+	font-family: Samsung;
+	font-size: 0.7em;
+	font-weight: 400;
+}
+
+.colorUnderline {
+	border-top: 3px solid;
+	width: 70%;
+	height: 1px;
+	margin: 0 auto;
+}
+
+.orangeUnderline::after {
+	background-color: #FFA060;
+}
+
+.greenUnderline::after {
+	background-color: #4EB666;
+}
+
+.redUnderline::after {
+	background-color: #E2544F;
+}
+
+.blueUnderline::after {
+	background-color: #7FC9FF;
+}
+
+
+
+.teamArea {
+	width: 100%;
+	height: 611px;
+}
+
+.teamBox {
+	width: 100%;
+	height: 500px;
+	display: flex;
+	margin: 0 auto;
+	background-color: #993A2D;
+}
+
+.teamArea header {
+	width: 100%;
+	margin: 0 auto;
+	background-color: transparent;
+}
+
+.teamArea header>img {
+	width: 20%;
+	height: 92px;
+	margin: 0 auto;
+	position: absolute;
+	left: 40%;
+}
+
+.wrapTop {
+	width: 100%;
+	height: 20px;
+	background-color: #993A2D;
+}
+
+.wrapSide {
+	width: 40%;
+	height: 91px;
+	background-color: #993A2D;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+
+
+.members {
+	width: 1200px;
+	margin: 80px auto 0 auto;
+	vertical-align: top;
+}
+
+.member {
+	width: 33%;
+	display: inline-block;
+}
+
+.member img {
+	margin: 0 auto;
+	width: 28%;
+	position: relative;
+	left: 36%;
+}
+
+.futureArea {
+	width: 100%;
+	height: 300px;
+	background-color: rgba(250, 250, 250, 0.3);
+	display: block;
+	clear: both;
+}
+
+.futureArea h6 {
+	width: 300px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 100px 0 0 0;
+}
+
+
+
+@keyframes blink {
+	to {
+		visibility: hidden;
+	}
+}
+
+@-webkit-keyframes blink {
+	to {
+		visibility: hidden;
+	}
+}
+
+footer ul {
+	list-style: none;
+}
+
+footer li::before {
+	content: '>';
+	padding: 0 3px 0 0;
+}
+
+.blink {
+	animation: blink 1.5s steps(5, start) infinite;
+	-webkit-animation: blink 1.5s steps(5, start) infinite;
+}
