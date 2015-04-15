@@ -1,27 +1,13 @@
-/*
-Theme Name: HadeSoft
-Theme URI: http://hadesoft.io/
-Author: HadeSoft
-Author URI: http://hadesoft.io/
-Description: This is the template used for hadesbroadband
-Version: 1.0
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: hadesoft
-Text Domain: HadeSoft
-*/
-@import "reset.css"
-
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 @font-face {
 	font-family: 'Samsung';
-	src: url(font/SamsungImagination.otf);
+	src: url(/font/SamsungImagination.otf);
 
 }
 
 html {
-	background: url(images/logoRemovedGW@.jpg) no-repeat center center fixed;
+	background: url(/images/logoRemovedGW@.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -157,10 +143,12 @@ h6 {
 .project {
 	width: 210px;
 	height: 210px;
-	background-color: #CCCAE7;
 	display: inline-block;
 	margin: 0 80px 0 80px;
 	border-radius: 105px;
+	background-color: #F0F0F0;
+	-webkit-transition: background-color 2s;
+	transition: background-color 2s;
 }
 
 .circle {
@@ -172,6 +160,22 @@ h6 {
 	-webkit-border-radius: 80px;
 	border-radius: 90px;
 	margin: 15px 0 0 15px;
+}
+
+.orangeBackground:hover {
+	background-color: #FFA060;
+}
+
+.greenBackground:hover {
+	background-color: #4EB666;
+}
+
+.redBackground:hover {
+	background-color: #E2544F;
+}
+
+.blueBackground:hover {
+	background-color: #7FC9FF;
 }
 
 
