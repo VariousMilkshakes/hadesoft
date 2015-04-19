@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var dirPath = "./";
+var dirPath = process.env.OPENSHIFT_REPO_DIR;
 
 var routes = require(dirPath + 'routes/index');
 
@@ -65,6 +65,6 @@ app.use(function(err, req, res, next) {
 var port = process.env.OPENSHIFT_NODEJS_PORT;
 var address = process.env.OPENSHIFT_NODEJS_IP;
 
-app.listen("8765"/*, address*/);
+app.listen(port, address*/);
 console.log("Running on 8765");
 module.exports = app;
