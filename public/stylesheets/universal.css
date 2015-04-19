@@ -7,11 +7,7 @@
 }
 
 html {
-	background: url(/images/logoRemovedGW@.jpg) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+	background-color: #1F1F1F;
 }
 
 body {
@@ -20,15 +16,39 @@ body {
 	font-size: 25px;
 }
 
-body>header {
+.shiftBox {
+	background: url(/images/logoRemovedGW@.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	position: relative;
+}
+
+.shiftBox>header {
 	height: 120px;
 	background-color: white;
 	width: 100%;
 }
 
-body>header img {
+.shiftBox>header img {
 	height: 75px;
 	padding: 23px 0 0 35px;
+}
+
+.shiftBox>header nav {
+	font-family: Inconsolata;
+	width:200px;
+	margin: -45px auto 0 auto;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 footer {
@@ -40,6 +60,20 @@ footer {
 	bottom: 0;
 	padding: 3px 0 0 130px;
 	color: white;
+}
+
+footer .nav {
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+footer i {
+	font-size: 0.8em !important;
 }
 
 h1 {
@@ -320,7 +354,7 @@ h6 {
 	left: 36%;
 }
 
-.futureArea {
+.forumArea {
 	width: 100%;
 	height: 300px;
 	background-color: rgba(250, 250, 250, 0.3);
@@ -328,11 +362,32 @@ h6 {
 	clear: both;
 }
 
-.futureArea h6 {
+.forumArea * {
+	visibility: hidden;
+}
+
+.forumArea h2 {
 	width: 300px;
 	text-align: center;
 	margin: 0 auto;
 	padding: 100px 0 0 0;
+	color: white;
+	padding: 10px 0 0 0;
+	font-size: 2.5em;
+	visibility: visible;
+}
+
+.forumBox {
+	width: 800px;
+	height: 100px;
+	background-color: white;
+	margin: 0 auto;
+}
+
+.forumBox a>h3 {
+	font-size: 1.2em;
+	text-decoration: none;
+	color: inherit;
 }
 
 
@@ -362,3 +417,37 @@ footer li::before {
 	animation: blink 1.5s steps(5, start) infinite;
 	-webkit-animation: blink 1.5s steps(5, start) infinite;
 }
+
+.note {
+	width: auto;
+	height: 30px;
+	background-color: white;
+	margin: 5px 0 15px 0;
+	padding: 5px 10px 5px 20px;
+	border-right-width: 4px;
+	border-right-style: solid;
+	text-decoration: none;
+	color: inherit;
+	display: inline-block;
+	font-family: Samsung;
+}
+
+.note:nth-child(4n+0) {
+	border-right-color: #FFA060;
+}
+
+.note:nth-child(4n+1) {
+	border-right-color: #4EB666;
+}
+
+.note:nth-child(4n+2) {
+	border-right-color: #E2544F;
+}
+
+.note:nth-child(4n+3) {
+	border-right-color: #7FC9FF;
+}
+
+
+
+.shiftBox 
