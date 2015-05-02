@@ -1,0 +1,30 @@
+extends layout
+
+block footer
+	footer
+		ul.left
+			li HadeSoft is a Hades Broadband Division
+			li Web Admin: vm@hadesoft.io
+			li Last Updated: Time out of bounds of array
+			li.nav
+				span.blink _
+		ul.right
+			-if (user)
+				li #{user.name}
+				li
+					a(href='/logout')
+			-else
+				form#localSignIn(action='/login')
+					li
+						label(for='usernameInput') Username:
+					li
+						input.expandType#usernameInput(type='text' name='username' maxlength="20")
+						label(for='usernameInput')
+					li
+						label(for='passwordInput') Password:
+					li
+						input.expandType#passwordInput(type='text' name='password' maxlength="20")
+					input.loginSubmit(type='submit' value='Login')
+					| With:
+					input.loginSubmit#register(type='submit' value='Google')
+					a.loginSubmit(href='/sign-up') Sign Up

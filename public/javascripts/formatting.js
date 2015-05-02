@@ -1,6 +1,6 @@
 $(document).ready(function (){
 
-	$("nav").on("click", function (){
+	$(".openMenu").on("click", function (){
 		toggleConsole();
 	});
 
@@ -40,7 +40,7 @@ var menuContent = {
 
 function typeOut (){
 
-	var targetElement = "footer ul";
+	var targetElement = "footer .left";
 
 	// Each navigation title ends with * signal move onto next line
 
@@ -65,14 +65,14 @@ function typeOut (){
 
 			} else {
 
-				$(targetElement + ":last-child span").before(currentLetter);
+				$(targetElement).children().last().children("span").before(currentLetter);
 				currentX++;
 
 			}
 
 			if (currentX == 0) {
 
-				var newRowHTML = "<li class='nav'><span class='blink'>_</span></li>"
+				var newRowHTML = "<li class='nav'><span class='blink'>_</span></li>";
 
 				$("li .blink").remove();
 				$(targetElement).append(newRowHTML);
@@ -81,7 +81,7 @@ function typeOut (){
 		} else {
 			window.clearInterval(typeSpeed);
 
-			$("footer ul").on("click", ".nav", function (event){
+			$("footer .left").on("click", ".nav", function (event){
 				closeConsole(event);
 			});
 		}
@@ -90,7 +90,7 @@ function typeOut (){
 
 function closeConsole (e){
 
-	$("footer ul").off("click", ".nav");
+	$("footer .left").off("click", ".nav");
 
 	var spinner = $("li .blink");
 	spinner.removeClass("blink");
@@ -120,12 +120,12 @@ function closeConsole (e){
 function collapseConsole (location){
 
 	$(".nav").remove();
-	$("footer ul").append("<li class='nav'><span class='blink'>_</span></li>");
+	$("footer .left").append("<li class='nav'><span class='blink'>_</span></li>");
 
 	var showContentCss = { "height" : "3000px" };
 	var shiftBox = $(".shiftBox");
 
-	shiftBox.animate(showContentCss, 1000, "linear", function (){
+	shiftBox.animate(showContentCss, 500, "linear", function (){
 
 		shiftBox.removeAttr("style");
 		menuOpen = false;
@@ -141,8 +141,10 @@ function steadyScrollTo (id){
 	var offset = $(id).offset().top /*+ $(window).height()*/ - 130;
 	console.log(offset + " , " + $(window).height() + " , " + $(id).offset().top);
 
-	$('html, body').animate({ scrollTop : offset }, offset);
+	$('html, body').animate({ scrollTop : offset }, offset / 3);
 }
+
+
 
 function sizeOf (obj){
 

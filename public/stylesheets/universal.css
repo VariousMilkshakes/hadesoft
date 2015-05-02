@@ -16,8 +16,13 @@ body {
 	font-size: 25px;
 }
 
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
 .shiftBox {
-	background: url(/images/logoRemovedGW@.jpg) no-repeat center center fixed;
+	background: url(/images/28.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -29,9 +34,10 @@ body {
 	height: 120px;
 	background-color: white;
 	width: 100%;
+	overflow: hidden;
 }
 
-.shiftBox>header img {
+.shiftBox>header .logo {
 	height: 75px;
 	padding: 23px 0 0 35px;
 }
@@ -51,18 +57,13 @@ body {
 	user-select: none;
 }
 
-footer {
+.shiftBox>header>h3 {
 	font-family: Inconsolata;
-	font-size: 0.7em;
-	background-color: #1F1F1F;
-	width: auto;
-	height: 200px;
-	bottom: 0;
-	padding: 3px 0 0 130px;
-	color: white;
-}
-
-footer .nav {
+	font-size: 0.9em;
+	display: inline;
+	top: 38px;
+	font-weight: 400;
+	position: absolute;
 	cursor: pointer;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -72,8 +73,29 @@ footer .nav {
 	user-select: none;
 }
 
-footer i {
-	font-size: 0.8em !important;
+.shiftBox>header>h3:hover,
+.shiftBox>header>h3 *:hover {
+	color: #993A2D;
+}
+
+.shiftBox>header .avatar {
+	-webkit-filter: grayscale(60%);
+	opacity: 0.4;
+	margin: -50px 0 0 0;
+	min-width: 120px;
+	max-width: 180px;
+	width: auto;
+	min-height: 120px;
+	max-height: 180px;
+	height: auto;
+}
+
+.shiftBox>header .login {
+	right: 140px;
+}
+
+.shiftBox>header .register {
+	right: 50px;
 }
 
 h1 {
@@ -132,6 +154,20 @@ h6 {
 	text-align: center;
 	vertical-align: middle;
 	display: inline-block;
+}
+
+
+
+.reportArea {
+	width: 100%;
+	padding: 30px 0;
+	background-color: #dbbf56;
+}
+
+#reportBox {
+	width: 600px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 
@@ -230,7 +266,6 @@ h6 {
 }
 
 .projectDesc a {
-	text-decoration: none;
 	color: inherit;
 	width: 100%;
 	display: block;
@@ -358,12 +393,7 @@ h6 {
 	width: 100%;
 	height: 300px;
 	background-color: rgba(250, 250, 250, 0.3);
-	display: block;
 	clear: both;
-}
-
-.forumArea * {
-	visibility: hidden;
 }
 
 .forumArea h2 {
@@ -386,8 +416,111 @@ h6 {
 
 .forumBox a>h3 {
 	font-size: 1.2em;
-	text-decoration: none;
 	color: inherit;
+}
+
+
+
+.signupArea {
+	width: 900px;
+	background-color: #993A2D;
+	margin: 0 auto;
+}
+
+#signupBox {
+	width: 850px;
+	margin: 0 auto;
+	background-color: white;
+	height: 650px;
+}
+
+#signupBox>form {
+	padding: 0 30px;
+}
+
+#signupBox>form>* {
+	display: block;
+}
+
+#signupBox>form>input[type='text'] {
+}
+
+
+
+footer {
+	font-family: Inconsolata;
+	font-size: 0.7em;
+	background-color: #1F1F1F;
+	width: auto;
+	height: 200px;
+	bottom: 0;
+	padding: 3px 0 0 130px;
+	color: white;
+	display: flex;
+	flex-wrap: wrap-reverse;
+}
+
+footer .nav {
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+footer i {
+	font-size: 0.8em !important;
+}
+
+footer ul {
+	list-style: none;
+	width: 500px;
+}
+
+footer li::before {
+	content: '>';
+	padding: 0 3px 0 0;
+}
+
+footer li>input[type='text'] {
+	border: 0px;
+	background-color: transparent;
+	color: inherit;
+	width: 180px;
+	border-bottom: 1px solid white;
+	font-family: Inconsolata;
+	font-size: 18px;
+	font-weight: inherit;
+}
+
+footer label>.inputPadding {
+	display: inline-block;
+	height: 18px;
+	width: 60px;
+}
+
+footer .loginSubmit {
+	border: 1px solid white;
+	border-radius: 0px;
+	background-color: transparent;
+	margin: 12px;
+	padding: 3px 10px 3px 10px;
+	color: white;
+	font-family: inherit;
+	text-align: center;
+}
+
+footer .loginSubmit:hover {
+	background-color: white;
+	color: #1F1F1F;
+}
+
+footer a {
+	display: block;
+	width: 70px;
+	margin-top: 0px !important;
 }
 
 
@@ -404,15 +537,6 @@ h6 {
 	}
 }
 
-footer ul {
-	list-style: none;
-}
-
-footer li::before {
-	content: '>';
-	padding: 0 3px 0 0;
-}
-
 .blink {
 	animation: blink 1.5s steps(5, start) infinite;
 	-webkit-animation: blink 1.5s steps(5, start) infinite;
@@ -426,7 +550,6 @@ footer li::before {
 	padding: 5px 10px 5px 20px;
 	border-right-width: 4px;
 	border-right-style: solid;
-	text-decoration: none;
 	color: inherit;
 	display: inline-block;
 	font-family: Samsung;
@@ -447,7 +570,3 @@ footer li::before {
 .note:nth-child(4n+3) {
 	border-right-color: #7FC9FF;
 }
-
-
-
-.shiftBox 

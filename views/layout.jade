@@ -1,7 +1,60 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+head
+	meta(charset='UTF-8')
+	title HadeSoft - Prototype
+	script(type='text/javascript' src='/javascripts/jquery-1.11.1.min.js')
+	script(type='text/javascript' src='/javascripts/formatting.js')
+	link(rel='stylesheet', type='text/css', href='/stylesheets/reset.css')
+	link(rel='stylesheet', type='text/css', href='/stylesheets/universal.css')
+	link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
+
+body
+	.shiftBox
+		header
+			a(href='/')
+				img.logo(src='./images/hsoftLogo.png', alt='HadeSoft')
+			-if (menu)
+				nav.openMenu MENU
+					span.blink _
+			-if (user)
+				h3.login USER : #{user.name}
+				img.avatar.right(src='#{user.avatar}')
+			-else
+				h3.login.openMenu LOGIN
+				h3.register
+					a(href='/sign-up') SIGN UP
+		-if (error || success || notice)
+			.reportArea
+				#reportBox
+					h4 #{error}
+					h4 #{success}
+					h4 #{notice}
+		block content
+
+	footer
+		ul.left
+			li HadeSoft is a Hades Broadband Division
+			li Web Admin: vm@hadesoft.io
+			li Last Updated: Time out of bounds of array
+			li.nav
+				span.blink _
+		ul.right
+			-if (user)
+				li #{user.name}
+				li
+					a(href='/logout') Logout
+			-else
+				form#localSignIn(action='/login' method='post')
+					li
+						label(for='usernameInput') Username:
+					li
+						input.expandType#usernameInput(type='text' name='username' maxlength="20")
+						label(for='usernameInput')
+					li
+						label(for='passwordInput') Password:
+					li
+						input.expandType#passwordInput(type='text' name='password' maxlength="20")
+					input.loginSubmit(type='submit' value='Login')
+					| With:
+					input.loginSubmit#register(type='submit' value='Google')
+					a.loginSubmit(href='/sign-up') Sign Up
