@@ -434,15 +434,62 @@ h6 {
 	height: 650px;
 }
 
+#signupBox>form>h5 {
+	margin: 10px 0px 15px -125px;
+	width: 850px;
+	background-color: #993A2D;
+	color: white;
+	padding: 10px 0;
+	overflow: hidden;
+	height: 0px;
+}
+
 #signupBox>form {
 	padding: 0 30px;
+	width: 600px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 #signupBox>form>* {
 	display: block;
 }
 
-#signupBox>form>input[type='text'] {
+#signupBox>form>input {
+	font-family: Samsung;
+	width: 320px;
+	margin: 0 auto 20px auto;
+}
+
+#signupBox>form>label {
+	font-family: Samsung;
+}
+
+#signupBox>form>input[type='text'],
+#signupBox>form>input[type='password'] {
+	border: 0px;
+	border-bottom: 2px solid black;
+}
+
+#signupBox>form input[type='submit'] {
+	border-radius: 0px;
+	border: 2px solid black;
+	background-color: white;
+	color: black;
+}
+
+#signupBox>form input[type='submit']:hover {
+	border-color: white;
+	background-color: black;
+	color: white;
+}
+
+#emailSU {
+	width: 320px;
+}
+
+#usernameSU {
+	width: 260px;
 }
 
 
@@ -484,7 +531,8 @@ footer li::before {
 	padding: 0 3px 0 0;
 }
 
-footer li>input[type='text'] {
+footer li>input[type='text'],
+footer li>input[type='password'] {
 	border: 0px;
 	background-color: transparent;
 	color: inherit;

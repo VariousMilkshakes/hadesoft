@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-var ppLocalStrategy = require('passport-local');
+var ppLocalStrategy = require('passport-local').Strategy;
 var ppGoogleSteategy = require('passport-google');
 
 
@@ -16,7 +16,7 @@ var validate = require('./serverFiles/validate.js');
 
 var dirPath = process.env.OPENSHIFT_REPO_DIR;
 
-//testing
+//local testing
 dirPath = "./";
 
 var app = express();
@@ -31,6 +31,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+//REPLACE SECRET WITH YOUR OWN
 app.use(session({secret: "SECRETPLACEHOLD", saveUninitialized: false, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -88,25 +89,28 @@ passport.use('local-signin', new ppLocalStrategy({
 
 passport.use('local-signup', new ppLocalStrategy({
     passReqToCallback : true
-}, function (req, username, password, password2, email, next){
+}, function (req, username, password, next){
 
-    controls.localReg(username, password)
+    var email = req.body.email;
+
+    controls.localReg(username, password, email)
     .then(function (user) {
 
         if (user) {
             console.log(">>REGISTERED: " + user.name);
             req.session.success = "Welcome to Hades Broadband " + user.name + "!";
-            next(null, user);
+            return next(null, user);
         }
 
         if (!user) {
             console.log(">>Could not sign user up");
             req.session.error = "That username is already in use, please try a different one.";
-            next(null, user);
+            return next(null, user);
         }
     })
-    .fail(function (error){
+    .fail(function (e){
         console.log(error.body);
+        return next(null, false, { error : e });
     });
 }));
 
@@ -142,7 +146,8 @@ app.get('/sign-up', function (req, res){
 
 app.post('/local-reg', passport.authenticate('local-signup', {
     successRedirect: '/',
-    failureRedirect: '/'
+    failureRedirect: '/',
+    failureFlash : true
 }));
 
 app.post('/login', passport.authenticate('local-signin', {
@@ -157,6 +162,23 @@ app.get('/logout', function (req, res){
     req.logout();
     res.redirect('/');
     req.session.notice = currentUser.name + " has been logged out.";
+});
+
+app.get('/verify', function (req, res){
+    var id = req.query.id;
+    var username = req.query.username;
+    console.log(id + " : " + username);
+    
+    validate.verify(id, username)
+    .then(function (status) {
+        console.log(status);
+        if (status == "Your account has been validated") {
+            res.render('welcome', { message : status });
+        } else {
+            res.render('error', { error : status });
+        }
+    })
+    .fail(function (error))
 });
 
 

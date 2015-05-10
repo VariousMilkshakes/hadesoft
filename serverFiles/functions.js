@@ -1,18 +1,16 @@
 var bcrypt = require('bcryptjs');
 var Q = require('q');
+
 var config = require('../serverFiles/config.js');
+var validate = require('../serverFiles/validate.js');
+
 var dbConnection = require('orchestrate');
 dbConnection.ApiEndPoint = "api.ctl-gb3-a.orchestrate.io";
 var db = dbConnection(config.db);
 
-exports.localReg = function (username, password){
+exports.localReg = function (username, password, email){
 	var deferred = Q.defer();
 	var hash = bcrypt.hashSync(password, 8);
-	var user = {
-		"name" : username,
-		"password" : hash,
-		"avatar" : "./images/standing.png"
-	};
 
 	db.get('local-users', username)
 	.then(function (result){
@@ -20,6 +18,18 @@ exports.localReg = function (username, password){
 		deferred.resolve(false);
 	})
 	.fail(function (result){
+
+		var vID = validate.email(email, username);
+
+		var user = {
+			"name" : username,
+			"password" : hash,
+			"email" : email,
+			"valid" : false,
+			"validationID" : vID,
+			"avatar" : "./images/standing.png"
+		};
+
 		console.log(">>>New user sign up: " + username);
 		console.log(result.body);
 

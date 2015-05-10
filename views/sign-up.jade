@@ -1,16 +1,18 @@
 extends layout
 
 block content
+	script(type='text/javascript' src='/javascripts/chips.js')
 	.signupArea
 		#signupBox
-			form(action='/local-reg' method='post')
-				h2 Sign Up
+			form
+				h2 SIGN UP
+				h5#feedback Error
 				label(for='usernameSU') Username:
 				input(type='text' name='username' id='usernameSU')
 				label(for='emailSU') Email:
 				input(type='text' name='email' id='emailSU')
 				label(for='passwordSU') Password:
-				input(type='password' name='password' id='passwordSU')
-				label(for='passwordSU') Confirm Password:
-				input(type='password' name='password' id='passwordSU')
-				input(type='submit' value='Submit')
+				input.passSU(type='password' name='password' id='passwordSU')
+				label(for='password2SU') Confirm Password:
+				input.passSU(type='password' name='password2' id='password2SU')
+				input#sendSignUp(type='submit' value='Submit')
