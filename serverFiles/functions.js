@@ -1,5 +1,6 @@
 var bcrypt = require('bcryptjs');
 var Q = require('q');
+var dateFormat = require('date-format');
 
 var config = require('../serverFiles/config.js');
 var validate = require('../serverFiles/validate.js');
@@ -12,7 +13,7 @@ exports.localReg = function (username, password, email){
 	var deferred = Q.defer();
 	var hash = bcrypt.hashSync(password, 8);
 
-	db.get('local-users', username)
+	db.get(config.dbLocal, username)
 	.then(function (result){
 		console.log(">>>Sign up with existing username: " + username);
 		deferred.resolve(false);
@@ -20,14 +21,17 @@ exports.localReg = function (username, password, email){
 	.fail(function (result){
 
 		var vID = validate.email(email, username);
+		var time = new Date();
+		var ISO8601B = dateFormat.asString('yyyyMMddThhmmssZ');
 
 		var user = {
 			"name" : username,
 			"password" : hash,
 			"email" : email,
 			"valid" : false,
+			"start" : ISO8601B,
 			"validationID" : vID,
-			"avatar" : "./images/standing.png"
+			"avatar" : config.defaultAvatar
 		};
 
 		console.log(">>>New user sign up: " + username);
@@ -36,7 +40,7 @@ exports.localReg = function (username, password, email){
 		if (result.body.message == "The requested items could not be found.") {
 			console.log(">>>" + username + " not in use!");
 
-			db.put('local-users', username, user)
+			db.put(config.dbLocal, username, user)
 			.then(function (){
 				console.log(">>>Welcome: " + user.name);
 				deferred.resolve(user);
@@ -56,9 +60,10 @@ exports.localReg = function (username, password, email){
 exports.localAuth = function (username, password){
 	var deferred = Q.defer();
 
-	db.get('local-users', username)
+	db.get(config.dbLocal, username)
 	.then(function (result){
 		console.log(">>>" + username + " exisits");
+		console.log(">>>" + username + ", valid : " + result.body.valid);
 
 		var hash  = result.body.password;
 		console.log(">>>Testing: " + hash);
@@ -80,4 +85,42 @@ exports.localAuth = function (username, password){
 	});
 
 	return deferred.promise;
+}
+
+exports.sleepAllUsers = function (){
+	db.deleteCollection(config.dbOnline);
+	console.log(">>>ALL ONLINE USERS HAVE BEEN CLEARED");
+}
+
+exports.activateUser = function (user){
+	var id = user.name;
+	var avatar = user.avatar;
+	var time = new Date();
+	var ISO8601B = dateFormat.asString('yyyyMMddThhmmssZ');
+
+	var activeUser = {
+		"name" : id,
+		"avatar" : avatar,
+		"activeSince" : ISO8601B
+	};
+
+	db.put(config.dbOnline, id, activeUser)
+	.then(function (result) {
+		console.log(">>>User: " + id + " is now ACTIVE");
+	})
+	.fail(function (error) {
+		console.log(">>>Failed to add " + id + " to active users");
+		console.log(">>>" + error);
+	});
+}
+
+exports.sleepUser = function (user){
+	db.remove(config.dbOnline, user)
+	.then(function (result){
+		console.log(">>>" + user + " has become inactive");
+	})
+	.fail(function (error){
+		console.log(">>>" + user + " could not be made inactive!");
+		console.log(error);
+	})
 }

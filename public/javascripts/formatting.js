@@ -4,6 +4,10 @@ $(document).ready(function (){
 		toggleConsole();
 	});
 
+	$(".onlineUser>div").on("click", function (e){
+		toggleName(e);
+	})
+
 });
 
 var menuOpen = false;
@@ -142,6 +146,18 @@ function steadyScrollTo (id){
 	console.log(offset + " , " + $(window).height() + " , " + $(id).offset().top);
 
 	$('html, body').animate({ scrollTop : offset }, offset / 3);
+}
+
+
+function toggleName (e){
+	var user = $(e.currentTarget);
+	var header = user.children('a');
+
+	if (header.css('display') == 'none') {
+		header.css('display', 'inline');
+	} else {
+		header.css('display', 'none');
+	}
 }
 
 

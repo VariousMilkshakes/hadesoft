@@ -9,9 +9,7 @@ $(document).ready(function (){
 		var pword2Inp = $('#password2SU').val();
 		var emailInp = $('#emailSU').val();
 
-		if (unameInp == "")
-
-		var passMatch = checkPassword(pwordInp, pword2Inp);
+		passMatch = checkPassword(pwordInp, pword2Inp);
 
 		if (passMatch) {
 			showPasswordError (true);
@@ -31,7 +29,6 @@ $(document).ready(function (){
 });
 
 function checkPassword (pass1, pass2) {
-	if (pass1.length >= )
 
 	if (pass1 == pass2) {
 		return true;

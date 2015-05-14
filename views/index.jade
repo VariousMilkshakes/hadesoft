@@ -1,9 +1,37 @@
 extends layout
 
 block content
-	.titleArea
-		#titleBox
-			h1 THE WORKSHOP
+	-if (user && user.valid)
+		.forumArea
+			header
+				h2 FORUM
+			section.forumLocation
+				a(href='/forum').note HOME
+			section.forumBox
+
+			section.onlineUser
+				div#currentUser
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+
+
+	-else
+		.titleArea
+			#titleBox
+				h1 #{titleMessage}
+
 	.projectArea
 		#projectBox
 			h2 OUR PROJECTS
@@ -42,6 +70,7 @@ block content
 						a(href='http://www.hadesoft.io')
 							h5.blueUnderline HadeSoft
 							p Hades Broadband software and Website Development hub.
+
 	.teamArea
 		header
 			.wrapTop
@@ -56,16 +85,5 @@ block content
 					img(src='./images/mem2.png', alt='')
 				.member
 					img(src='./images/mem3.png', alt='')
-	-if (user)
-		.forumArea
-			header
-				h2 Under Construction
-			section.forumLocation
-				a(href='/forum').note HOME
-				a(href='/forum').note HOW COME I CAN ONLY SEE CARROTS
-				a(href='/forum').note TOPIC
-				a(href='/forum').note MAN INVISIBLE ALIENS ARE THE WORST
-				a(href='/forum').note THREAD
-			section.forumBox
-				a(href='/forum/dev')
-					h3 Development
+
+	script(type='text/javascript' src='/javascripts/formatting.js')

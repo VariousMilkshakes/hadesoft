@@ -9,17 +9,16 @@ var passport = require('passport');
 var ppLocalStrategy = require('passport-local').Strategy;
 var ppGoogleSteategy = require('passport-google');
 
-
 var config = require('./serverFiles/config.js');
 var controls = require('./serverFiles/functions.js');
 var validate = require('./serverFiles/validate.js');
 
-var dirPath = process.env.OPENSHIFT_REPO_DIR;
-
-//local testing
-dirPath = "./";
+var dirPath = config.dev.dir;
 
 var app = express();
+
+// Clear all online users
+controls.sleepAllUsers();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //REPLACE SECRET WITH YOUR OWN
-app.use(session({secret: "SECRETPLACEHOLD", saveUninitialized: false, resave: true}));
+app.use(session({secret: config.secret, saveUninitialized: false, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -66,20 +65,22 @@ app.use(function (req, res, next){
 
 passport.use('local-signin', new ppLocalStrategy({
     passReqToCallback : true
-}, function (req, username, password, next) {
+}, function (req, username, password, done) {
     controls.localAuth(username, password)
     .then(function (user){
 
         if (user) {
-            console.log(">>Logged in as: " + user.name);
+            console.log(">>Logged in as: " + user.valid + ", " + user.name);
+            controls.activateUser(user);
+
             req.session.success = "Welcome back " + user.name + "!";
-            next(null, user);
+            done(null, user);
         }
 
         if (!user) {
             console.log(">>Login Failed!");
             req.session.error = "Could not login, try again!";
-            next(null, user);
+            done(null, user);
         }
     })
     .fail(function (error){
@@ -88,8 +89,8 @@ passport.use('local-signin', new ppLocalStrategy({
 }));
 
 passport.use('local-signup', new ppLocalStrategy({
-    passReqToCallback : true
-}, function (req, username, password, next){
+    passReqToCallback : true,
+}, function (req, username, password, done){
 
     var email = req.body.email;
 
@@ -98,19 +99,19 @@ passport.use('local-signup', new ppLocalStrategy({
 
         if (user) {
             console.log(">>REGISTERED: " + user.name);
-            req.session.success = "Welcome to Hades Broadband " + user.name + "!";
-            return next(null, user);
+            req.session.success = "Please check your email in order to activate your account!";
+            return done(null, user);
         }
 
         if (!user) {
             console.log(">>Could not sign user up");
             req.session.error = "That username is already in use, please try a different one.";
-            return next(null, user);
+            return done(null, false);
         }
     })
     .fail(function (e){
         console.log(error.body);
-        return next(null, false, { error : e });
+        return done(null, false, { error : e });
     });
 }));
 
@@ -119,9 +120,10 @@ passport.serializeUser(function (user, next){
     next(null, user);
 });
 
-passport.deserializeUser(function (user, next){
-    console.log(">>Removing " + user.name + " from cereal box");
-    next(null, user);
+passport.deserializeUser(function (id, next){
+    console.log(">>Removing " + id.name + " from cereal box");
+
+    next(null, id);
 });
 
 function ensureAuthAccess (req, res, next){
@@ -137,17 +139,26 @@ function ensureAuthAccess (req, res, next){
 app.get('/', function(req, res) {
     var currentUser = req.user;
 
-    res.render('index', { title : 'Hadesoft', user : currentUser, menu : true });
+    res.render('index', {
+        title : config.site.title,
+        titleMessage : config.site.bannerMessage,
+        user : currentUser,
+        menu : true
+    });
 });
 
 app.get('/sign-up', function (req, res){
-    res.render('sign-up', { title : 'Sign Up', menu : false });
+    res.render('sign-up', {
+        title : 'Sign Up',
+        menu : false
+    });
 });
 
 app.post('/local-reg', passport.authenticate('local-signup', {
     successRedirect: '/',
-    failureRedirect: '/',
-    failureFlash : true
+    failureRedirect: '/sign-up',
+    failureFlash : true,
+    session : false
 }));
 
 app.post('/login', passport.authenticate('local-signin', {
@@ -157,11 +168,14 @@ app.post('/login', passport.authenticate('local-signin', {
 
 app.get('/logout', function (req, res){
     var currentUser = req.user;
-    console.log(">>Logging out " + currentUser.name);
 
     req.logout();
+    console.log(">>Logging out " + currentUser.name);
+
+    controls.sleepUser(currentUser.name);
+
+    req.session.notice = currentUser.name + " has logged out.";
     res.redirect('/');
-    req.session.notice = currentUser.name + " has been logged out.";
 });
 
 app.get('/verify', function (req, res){
@@ -173,12 +187,24 @@ app.get('/verify', function (req, res){
     .then(function (status) {
         console.log(status);
         if (status == "Your account has been validated") {
-            res.render('welcome', { message : status });
+            req.session.notice = status;
+            res.redirect('/');
         } else {
             res.render('error', { error : status });
         }
     })
-    .fail(function (error))
+    .fail(function (error) {
+        console.log(error);
+    });
+});
+
+app.get('/welcome', function (req, res){
+    res.render('index', {
+        title : config.site.title,
+        titleMessage : config.site.welcomeMessage,
+        menu : true,
+        user : false
+    });
 });
 
 
@@ -212,9 +238,9 @@ app.use(function(err, req, res, next) {
     });
 });
 
-var port = process.env.OPENSHIFT_NODEJS_PORT;
-var address = process.env.OPENSHIFT_NODEJS_IP;
+var port = config.dev.port;
+var address = config.dev.ip;
 
-app.listen(8765/*port, address*/);
+app.listen(port,address);
 console.log("Running on 8765");
 module.exports = app;

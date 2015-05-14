@@ -3,7 +3,6 @@ head
 	meta(charset='UTF-8')
 	title HadeSoft - Prototype
 	script(type='text/javascript' src='/javascripts/jquery-1.11.1.min.js')
-	script(type='text/javascript' src='/javascripts/formatting.js')
 	link(rel='stylesheet', type='text/css', href='/stylesheets/reset.css')
 	link(rel='stylesheet', type='text/css', href='/stylesheets/universal.css')
 	link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
@@ -17,9 +16,12 @@ body
 				nav.openMenu MENU
 					span.blink _
 			-if (user)
-				h3.login USER : #{user.name}
-				img.avatar.right(src='#{user.avatar}')
-			-else
+				-if (user.valid)
+					h3.login USER : #{user.name}
+					img.avatar.right(src='#{user.avatar}')
+				-else
+					h3.login Please Verify Your Email #{user} fsfgd
+			-else if (menu)
 				h3.login.openMenu LOGIN
 				h3.register
 					a(href='/sign-up') SIGN UP

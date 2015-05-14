@@ -1,10 +1,9 @@
 extends layout
 
 block content
-	script(type='text/javascript' src='/javascripts/chips.js')
 	.signupArea
 		#signupBox
-			form
+			form(method='post' action='/local-reg')
 				h2 SIGN UP
 				h5#feedback Error
 				label(for='usernameSU') Username:
@@ -16,3 +15,4 @@ block content
 				label(for='password2SU') Confirm Password:
 				input.passSU(type='password' name='password2' id='password2SU')
 				input#sendSignUp(type='submit' value='Submit')
+	script(type='javascript' src='/javascripts/chips.js')
