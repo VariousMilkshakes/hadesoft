@@ -1,1 +1,12 @@
+#Images
 *.jpg
+
+#Custom config and settings
+serverFiles/config.js
+
+#No dependencies
+node_modules
+
+#Font not owned by HadeSoft
+font
+serverFiles/config.js

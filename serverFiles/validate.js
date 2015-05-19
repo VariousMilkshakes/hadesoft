@@ -9,10 +9,12 @@ dbConnection.ApiEndPoint = "api.ctl-gb3-a.orchestrate.io";
 var db = dbConnection(config.db);
 
 var transporter = nodemailer.createTransport({
-	host: mOps.host,
-	port: mOps.port,
-	secure: mOps.secure,
-	tls: mOps.options,
+	host: "mail.hadesbroadband.co.uk",
+	port: 26,
+	secure: false,
+	tls: {
+			rejectUnauthorized : false
+	},
 	auth: mOps.login
 });
 
@@ -27,7 +29,7 @@ exports.email = function (email, username){
 
 
 	transporter.sendMail({
-		from : mOps.host,
+		from : "noreply@hadesbroadband.co.uk",
 		to : email,
 		subject : "Email Activation",
 		html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"

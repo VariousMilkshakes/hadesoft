@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	script(src='/socket.io/socket.io.js')
+	script(type='text/javascript' src='/javascripts/profiles.js')
+
+	.centerColumn
+		#profileBox
+			h2.left #{profile.name}
+			div.right#userAvatar
+				img(src='/images/standing.png')
+			-if(username != profile.name)
+				form.left#interactionMenu
+					input(type='button' value='Add As Friend' onclick='addFriend("#{username}", "#{profile.name}")')
+			-else
+				form.left#interactionMenu
+					div.fileUpload
+						span Choose Avatar
+						input(type='file' accepts='images/*')
+					input.fileSend(type='submit' value='OK')
