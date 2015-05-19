@@ -1,16 +1,14 @@
 $(document).ready(function (){
-	updateBindings();
-});
 
-function updateBindings(){
 	$(".openMenu").on("click", function (){
 		toggleConsole();
 	});
 
 	$(".onlineUser>div").on("click", function (e){
 		toggleName(e);
-	});
-}
+	})
+
+});
 
 var menuOpen = false;
 
@@ -160,23 +158,6 @@ function toggleName (e){
 	} else {
 		header.css('display', 'none');
 	}
-}
-
-var lostFolk = [];
-
-// Add and Remove active users from tacker
-function controlTracker (users){
-	var holder = $(".onlineUser");
-	holder.html("<div id='currentUser'><img src='./images/standing.png' alt='a'><a href='/user/profile/a'>a</a></div>");
-
-	for(each in users) {
-		var contact = users[each].value;
-		var contactHtml = "<div><img src='" + contact.avatar + "' alt='" + contact.name + "'></img>" +
-							"<a href='/user/profile/" + contact.name + "'>" + contact.name + "</a></div>";
-		holder.append(contactHtml);
-	}
-
-	updateBindings();
 }
 
 

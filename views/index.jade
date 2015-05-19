@@ -1,23 +1,7 @@
 extends layout
 
 block content
-	script(src='/socket.io/socket.io.js')
 	-if (user && user.valid)
-		script(type='text/javascript').
-			var socket = io.connect("http://82.37.178.154:8765");
-			var username = !{JSON.stringify(user.name)};
-			if (username != '') {
-				console.log('Requesting Users');
-				socket.emit('currentUser', username);
-				var userUpdate = setInterval(function (){
-					console.log('Requesting Users');
-					socket.emit('currentUser', username);
-				}, 10000);
-			}
-			socket.on("sendCurrentUsers", function (users){
-				console.log("Recieveing sduu");
-				controlTracker(users);
-			});
 		.forumArea
 			header
 				h2 FORUM
@@ -29,6 +13,19 @@ block content
 				div#currentUser
 					img(src='#{user.avatar}'  alt='#{user.name}')
 					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+				div
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/profile/#{user.name}') #{user.name}
+
 
 	-else
 		.titleArea
@@ -57,7 +54,7 @@ block content
 					section
 						a(href='http://www.hadesbroadband.co.uk')
 							h5.orangeUnderline Hades Broadband
-							p Hades Broadband hub for news and Team Speak access.
+							p Hades Broadband hub for news and Team Speak access. (TBU)
 				.projectDesc
 					section
 						a(href='http://sams.hadesoft.io')

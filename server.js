@@ -1,5 +1,4 @@
 var express = require('express');
-var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -17,8 +16,6 @@ var validate = require('./serverFiles/validate.js');
 var dirPath = config.dev.dir;
 
 var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
 
 // Clear all online users
 controls.sleepAllUsers();
@@ -44,6 +41,7 @@ var options = {
 };
 
 app.use(express.static(path.join(__dirname, 'public'), options));
+
 
 // Passport Session Middlewear
 app.use(function (req, res, next){
@@ -141,41 +139,12 @@ function ensureAuthAccess (req, res, next){
 app.get('/', function(req, res) {
     var currentUser = req.user;
 
-    if (typeof currentUser != undefined) {
-        console.log("~~~NO ONE ONLINE");
-    }
-
     res.render('index', {
         title : config.site.title,
         titleMessage : config.site.bannerMessage,
-        onlineUsers : false,
         user : currentUser,
         menu : true
     });
-});
-
-app.get('/user/profile/:user', function (req, res){
-    var currentUser = req.user;
-    console.log(currentUser);
-    if (currentUser != undefined) {
-        console.log("adfhafdh");
-        var username = req.params.user;
-        console.log(">>" + username);
-        currentUser = req.user;
-        console.log(currentUser);
-        res.render('profile', {
-            title : 'Account - ' + username,
-            menu : false,
-            profile : {
-                name : username
-            },
-            username : currentUser.name
-        });
-    } else {
-        console.log("hsuioahfof");
-        req.session.notice = "Can only view profiles while logged in.";
-        res.redirect('/');
-    }
 });
 
 app.get('/sign-up', function (req, res){
@@ -269,37 +238,9 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// Socket.io
-io.on('connect', function (socket){
-    console.log("?-?User Connected : ");
-});
-
-io.on('connection', function (socket){
-    socket.on('currentUser', function (username){
-        console.log("?-?" + username + " has requested users");
-        controls.getActiveUsers(username)
-        .then(function (activeUsers){
-            console.log(activeUsers);
-            try {
-                socket.emit("sendCurrentUsers", activeUsers);
-            } catch (e) {
-                console.log(e);
-            }
-        });
-    });
-
-    socket.on('addFriend', function(socket){
-        console.log("Adding new friend");
-        controls.addUserToFriends(socket.user, socket.profile);
-    });
-});
-
 var port = config.dev.port;
 var address = config.dev.ip;
 
-//app.listen(port/*, address*/);
-console.log("Running on " + port);
-server.listen(port, function (){
-    console.log("?-?The Socks are on!")
-});
+app.listen(port,address);
+console.log("Running on 8765");
 module.exports = app;
