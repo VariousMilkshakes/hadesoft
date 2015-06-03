@@ -22,7 +22,7 @@ a {
 }
 
 .shiftBox {
-	background: url(/images/28.jpg) no-repeat center center fixed;
+	background: url(/images/03.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -139,6 +139,12 @@ h6 {
 .titleArea {
 	height: 730px;
 	width: 100%;
+	box-shadow: inset 0px 4px 0px 0px rgba(0,0,0,0.4);
+	-webkit-box-shadow: inset 0px 4px 0px 0px rgba(0,0,0,0.4);
+	-moz-box-shadow: inset 0px 4px 0px 0px rgba(0,0,0,0.4);
+	text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+	-webkit-text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+	-moz-text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
 }
 
 #titleBox {
@@ -573,16 +579,19 @@ h6 {
 }
 
 #profileBox #interactionMenu {
-	width: 300px;
-	height: 100px;
-	margin: 5px 0 0 30px;
-	display: flex;
-	flex-wrap: nowrap;
+	width: 320px;
+	height: 120px;
 	clear: left;
 }
 
-#profileBox #interactionMenu>input[type='button'],
-#profileBox #interactionMenu>input[type='submit'] {
+#profileBox #interactionMenu form {
+	margin: 5px 0 0 30px;
+	width: 100%;
+	display: block;
+}
+
+#profileBox #interactionMenu input[type='button'],
+#profileBox #interactionMenu input[type='submit'] {
 	border: 2px solid black;
 	background-color: white;
 	height: 35px;
@@ -594,14 +603,14 @@ h6 {
 	margin: 5px 10px;
 }
 
-#profileBox #interactionMenu>input[type='button']:hover,
-#profileBox #interactionMenu>input[type='submit']:hover {
+#profileBox #interactionMenu input[type='button']:hover,
+#profileBox #interactionMenu input[type='submit']:hover {
 	border: 2px solid white;
 	background-color: black;
 	color: white;
 }
 
-#profileBox #interactionMenu>input[type='file'] {
+#profileBox #interactionMenu input[type='file'] {
 	border: 2px solid black;
 	font-size: 0.8em;
 	font-family: samsung;

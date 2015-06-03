@@ -1,0 +1,49 @@
+/* CSS styling for profile pages /user/profile/$x */
+/* Global */
+#profile-title {
+  color: #fff;
+  font-family: 'Source Sans Pro';
+  margin: 0 auto;
+  text-align: center;
+  width: 400px;
+  box-shadow: inset 0 4px 0px 0px rgba(0,0,0,0.4);
+  -webkit-box-shadow: inset 0 4px 0px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: inset 0 4px 0px 0px rgba(0,0,0,0.4);
+  text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+  -webkit-text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+  -moz-text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+}
+.center-row {
+  margin-bottom: 0;
+}
+#profile-img {
+  background-color: #993a2d;
+  float: left;
+  height: 200px;
+  margin: 40px 10px 10px 0;
+  padding-left: 40px;
+  box-shadow: inset -2px 4px 0px 0px rgba(0,0,0,0.4);
+  -webkit-box-shadow: inset -2px 4px 0px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: inset -2px 4px 0px 0px rgba(0,0,0,0.4);
+  width: 200px;
+}
+#profile-img img {
+  height: 200px;
+  max-width: 200px;
+}
+#profile-box {
+  float: right;
+  width: 740px;
+}
+#profile-stats {
+  float: left;
+  clear: left;
+}
+#profile-stats {
+  list-style: none;
+}
+#deep-info {
+  background-color: #993a2d;
+  height: 300px;
+  margin-top: -5px;
+}

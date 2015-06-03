@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var ppLocalStrategy = require('passport-local').Strategy;
 var ppGoogleSteategy = require('passport-google');
+var multer = require('multer');
 
 var config = require('./serverFiles/config.js');
 var controls = require('./serverFiles/functions.js');
@@ -43,7 +44,28 @@ var options = {
     maxAge : '1d'
 };
 
+
 app.use(express.static(path.join(__dirname, 'public'), options));
+
+//Multer Image Upload
+app.use(multer({
+    dest: config.forum.userUploads + config.forum.userAvatars,
+    rename: controls.renameFile,
+    limits: {
+        fieldNameSize: 500000,
+        files: 1
+    },
+    onFileUploadComplete: function (file){
+        console.log(file.fieldname + '  has been uploaded to ' + file.path);
+    },
+    onError: function (error, next) {
+        console.log(error);
+        next(error);
+    },
+    onFileUploadStart: function (file, req, res) {
+        console.log(file.fieldname + ' is starting ...');
+    }
+}));
 
 // Passport Session Middlewear
 app.use(function (req, res, next){
@@ -158,7 +180,6 @@ app.get('/user/profile/:user', function (req, res){
     var currentUser = req.user;
     console.log(currentUser);
     if (currentUser != undefined) {
-        console.log("adfhafdh");
         var username = req.params.user;
         console.log(">>" + username);
         currentUser = req.user;
@@ -196,6 +217,10 @@ app.post('/login', passport.authenticate('local-signin', {
     successRedirect: '/',
     failureRedirect: '/'
 }));
+
+app.post('/uploadFile/avatar', function (req, res, next){
+    console.log('!~File is being uploaded?');
+});
 
 app.get('/logout', function (req, res){
     var currentUser = req.user;

@@ -1,6 +1,14 @@
 extends layout
 
+block pageStyle
+	link(rel='stylesheet', type='text/css', href='/stylesheets/sol.css')
+
 block content
+	-if (error || success || notice)
+		.reportArea
+			h6 #{error}
+			h6 #{success}
+			h6 #{notice}
 	script(src='/socket.io/socket.io.js')
 	-if (user && user.valid)
 		script(type='text/javascript').
@@ -18,7 +26,7 @@ block content
 				console.log("Recieveing sduu");
 				controlTracker(users);
 			});
-		.forumArea
+		#forum-area
 			header
 				h2 FORUM
 			section.forumLocation
@@ -31,56 +39,50 @@ block content
 					a(href='/user/profile/#{user.name}') #{user.name}
 
 	-else
-		.titleArea
-			#titleBox
+		#title-area
+			#title-box
 				h1 #{titleMessage}
 
-	.projectArea
-		#projectBox
+	#project-area
+		#project-box
 			h2 OUR PROJECTS
 			h4 Over ambition and inexperience
-			.projectHolder
-				a.project.smallThumb.orangeBackground(href='http://www.hadesbroadband.co.uk')
-					.circle
+		.project-holder
+			a.project.smallThumb(href='http://www.hadesbroadband.co.uk').orange-bg
+				.outer-circle
+					.inner-circle
 						img(src='./images/hadesbroadband_Logo.png', alt='Hades Broadband')
-				a.project.largeThumb.greenBackground(href='http://sams.hadesoft.io')
-					.circle
+				section.project-desc
+					h6.uline Hades Broadband
+					p Hades Broadband hub for news and Team Speak access.
+			a.project.largeThumb(href='http://sams.hadesoft.io').green-bg
+				.outer-circle
+					.inner-circle
 						img(src='./images/sams_Logo.png', alt='SamS')
-				a.project.smallThumb.redBackground(href='https://github.com/Snappey/HadesBot')
-					.circle
+				section.project-desc
+					h6.uline SamS
+					p Computing Project
+			a.project.smallThumb(href='https://github.com/Snappey/HadesBot').red-bg
+				.outer-circle
+					.inner-circle
 						img(src='./images/hadesbot_Logo.png', alt='Hades Bot')
-				a.project.largeThumb.blueBackground(href='https://www.hadesoft.io')
-					.circle
+				section.project-desc
+					h6.uline Hades Bot
+					p Steam bot
+			a.project.largeThumb(href='https://www.hadesoft.io').blue-bg
+				.outer-circle
+					.inner-circle
 						img(src='./images/hadesoft_Logo.png', alt='HadeSoft')
-			.projectHolder
-				.projectDesc
-					section
-						a(href='http://www.hadesbroadband.co.uk')
-							h5.orangeUnderline Hades Broadband
-							p Hades Broadband hub for news and Team Speak access.
-				.projectDesc
-					section
-						a(href='http://sams.hadesoft.io')
-							h5.greenUnderline SamS
-							p Computing Project
-				.projectDesc
-					section
-						a(href='https://github.com/Snappey/HadesBot')
-							h5.redUnderline Hades Bot
-							p Steam bot
-				.projectDesc
-					section
-						a(href='http://www.hadesoft.io')
-							h5.blueUnderline HadeSoft
-							p Hades Broadband software and Website Development hub.
+				section.project-desc
+					h6.uline HadeSoft
+					p Hades Broadband software and Website Development hub.
 
-	.teamArea
-		header
-			.wrapTop
-			.wrapSide.left
+	#team-area
+		header#team-header
+			.team-wrap-side
 			img(src='./images/ourTeam.png')
-			.wrapSide.right
-		section.teamBox
+			.team-wrap-side
+		section#team-box
 			.members
 				.member
 					img(src='./images/mem1.png', alt='')

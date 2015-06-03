@@ -161,3 +161,16 @@ exports.addUserToFriends = function (target, friend){
 		console.log(">>>Cannot add " + friend + " to " + target + "'s friend list");
 	})
 };
+
+//Multer
+exports.renameFile = function (fieldname, filename, req, res){
+	var username = req.user.name;
+	var time = new Date();
+	var ISO8601B = dateFormat.asString('yyyyMMddThhmmss.SSSZ');
+
+	return username + ISO8601B;
+};
+
+exports.sortFiles = function (dest, req, res){
+
+};

@@ -1,0 +1,192 @@
+/* Font Import */
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700")
+@import url("http://fonts.googleapis.com/css?family=Inconsolata")
+
+/* Universal */
+$fontSize = 25px
+
+/* Generic Formatting */
+html
+	background-color #1F1F1F
+
+body
+	font-family 'Inconsolata'
+	color $chalk
+	font-size $fontSize
+
+a
+	color inherit
+	text-decoration none
+
+h1
+	font-size 5em
+	font-weight 700
+	font-family 'Source Sans Pro'
+
+h2
+	font-size 3.5em
+	font-weight 700
+
+h3
+	font-size 2.3em
+	font-weight 700
+
+h4
+	font-size 1.3em
+	font-weight 400
+
+h5
+	font-size 1em
+	font-weight 700
+
+h6
+	font-size 1em
+	font-weight 400
+	margin 0
+
+
+/* Universal Elements */
+
+//Header
+$headerHeight = 120px
+
+#top-bar
+	background-color #fff
+	height 120px
+	overflow hidden
+	width 100%
+
+#top-bar
+	a
+		float left
+
+#top-logo
+	height 75px
+	padding 25px 0 0 35px
+
+$headerSpace = ($headerHeight / 2) - 10px
+
+#top-bar
+	nav
+		margin $headerSpace auto 0 auto
+		SelectCursor pointer
+		text-align center
+		width 200px
+
+#top-bar
+	h6
+		display inline
+		font-family Inconsolata
+		SelectCursor pointer
+		&:hover,
+		/#top-bar h6 *:hover
+			color $clot
+
+#top-controls
+	float right
+	margin-right 20px
+	margin-top $headerSpace
+
+#top-avatar
+	height auto
+	margin-top -50px
+	max-height 180px
+	max-width 180px
+	min-height 120px
+	min-width 120px
+	opacity 0.4
+	width auto
+
+.login
+	margin-left 20px
+
+
+//User Reports
+#report-area
+	background-color $warning
+	padding 30px 0
+	width 100%
+	text-align center
+
+//container
+.container
+	background url("/images/03.jpg") no-repeat center center fixed
+	BackgroundSize cover
+
+//General Elements
+.center-row
+	background-color white
+	box-shadow 0 4px 0 0 rgba(0,0,0,0.4)
+	-moz-box-shadow 0 4px 0 0 rgba(0,0,0,0.4)
+	-webkit-box-shadow 0 4px 0 0 rgba(0,0,0,0.4)
+	color $chalk
+	display inline-block
+	margin 20px 0 200px 0
+	padding-bottom 50px
+	width 100%
+
+.clean-button
+	background-color transparent
+	border 1px solid white
+	color white
+	font-family inherit
+	margin 12px
+	padding 3px 10px
+	text-align center
+	&:hover
+		background-color white
+		border-color $board
+		color $board
+
+.full-button
+	background-color transparent
+	border 1px solid $board
+	color $board
+	font-family inherit
+	margin 12px
+	padding 3px 10px
+	text-align center
+	&:hover
+		background-color $board
+		border-color white
+		color white
+
+//Footer
+$footerHeight = 200px
+
+footer
+	background-color $board
+	bottom 0
+	color white
+	display flex
+	flex-wrap wrap-reverse
+	font-size 18px
+	height 200px
+	padding 5px 0 0 130px
+
+.nav
+	SelectCursor pointer
+
+#bottom-nav
+	width 500px
+
+.console-menu
+	list-style none
+
+.console-menu li::before
+	content '>'
+	padding 0 3px 0 0
+
+footer input[type='text'],
+footer input[type='password']
+	background-color transparent
+	border 0
+	border-bottom 1px solid white
+	color inherit
+	font-family inherit
+	width 180px
+
+#bottom-logout
+	display block
+	margin-top 0px !important
+	width 70px

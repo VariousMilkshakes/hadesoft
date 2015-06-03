@@ -1,18 +1,33 @@
 extends layout
 
+block pageStyle
+	link(rel='stylesheet', type='text/css', href='/stylesheets/andromeda.css')
+	-if (error || success || notice)
+		.reportArea
+			h6 #{error}
+			h6 #{success}
+			h6 #{notice}
 block content
-	.signupArea
-		#signupBox
-			form(method='post' action='/local-reg')
-				h2 SIGN UP
-				h5#feedback Error
+	h2#reg-title SIGN UP
+	.center-row
+		-if(error || success || notice)
+			h6#feedback #{error}
+				br
+				| #{success}
+				br
+				| #{notice}
+		form#reg-form(method='post' action='/local-reg')
+			.flex-column
 				label(for='usernameSU') Username:
 				input(type='text' name='username' id='usernameSU')
 				label(for='emailSU') Email:
 				input(type='text' name='email' id='emailSU')
+			.flex-column
 				label(for='passwordSU') Password:
 				input.passSU(type='password' name='password' id='passwordSU')
 				label(for='password2SU') Confirm Password:
 				input.passSU(type='password' name='password2' id='password2SU')
-				input#sendSignUp(type='submit' value='Submit')
+			.flex-column
+				.g-recaptcha(data-sitekey='6LdNxQcTAAAAADiOaSEZKH40wOvTpWl2nap13vKP')
+				input#sendSignUp.full-button(type='submit' value='Submit')
 	script(type='javascript' src='/javascripts/chips.js')

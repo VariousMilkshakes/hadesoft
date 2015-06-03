@@ -3,47 +3,44 @@ head
 	meta(charset='UTF-8')
 	title HadeSoft - Prototype
 	script(type='text/javascript' src='/javascripts/jquery-1.11.1.min.js')
+	script(src='https://www.google.com/recaptcha/api.js')
 	link(rel='stylesheet', type='text/css', href='/stylesheets/reset.css')
-	link(rel='stylesheet', type='text/css', href='/stylesheets/universal.css')
+	link(rel='stylesheet', type='text/css', href='/stylesheets/universal-2.css')
 	link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
+	block pageStyle
 
 body
-	.shiftBox
-		header
+	.container
+		header#top-bar
 			a(href='/')
-				img.logo(src='/images/hsoftLogo.png', alt='HadeSoft')
+				img#top-logo(src='/images/hsoftLogo.png', alt='HadeSoft')
 			-if (menu)
+				#top-controls
+					-if (user)
+						-if (user.valid)
+							h6.login USER : #{user.name}
+							img.avatar.right#top-avatar(src='#{user.avatar}')
+						-else
+							h6.login Please Verify Your Email #{user} fsfgd
+					-else if (menu)
+						h6.login.openMenu LOGIN
+						h6.register
+							a(href='/sign-up') SIGN UP
 				nav.openMenu MENU
 					span.blink _
-			-if (user)
-				-if (user.valid)
-					h3.login USER : #{user.name}
-					img.avatar.right(src='#{user.avatar}')
-				-else
-					h3.login Please Verify Your Email #{user} fsfgd
-			-else if (menu)
-				h3.login.openMenu LOGIN
-				h3.register
-					a(href='/sign-up') SIGN UP
-		-if (error || success || notice)
-			.reportArea
-				#reportBox
-					h4 #{error}
-					h4 #{success}
-					h4 #{notice}
 		block content
 	footer
-		ul.left
+		ul.console-menu.left#bottom-nav
 			li HadeSoft is a Hades Broadband Division
 			li Web Admin: vm@hadesoft.io
 			li Last Updated: Time out of bounds of array
 			li.nav
 				span.blink _
-		ul.right
+		ul.console-menu.right
 			-if (user)
 				li #{user.name}
 				li
-					a(href='/logout') Logout
+					a#bottom-logout(href='/logout') Logout
 			-else
 				form#localSignIn(action='/login' method='post')
 					li
@@ -55,7 +52,7 @@ body
 						label(for='passwordInput') Password:
 					li
 						input.expandType#passwordInput(type='password' name='password' maxlength="20")
-					input.loginSubmit(type='submit' value='Login')
+					input.clean-button(type='submit' value='Login')
 					| With:
-					input.loginSubmit#register(type='submit' value='Google')
-					a.loginSubmit(href='/sign-up') Sign Up
+					input.clean-button#register(type='submit' value='Google')
+					a.clean-button(href='/sign-up') Sign Up

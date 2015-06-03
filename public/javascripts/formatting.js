@@ -27,7 +27,7 @@ function expandConsole (){
 	window.scrollTo(0, 0);
 
 	var hideContentCss = { "height" : "0px" };
-	var shiftBox = $(".shiftBox");
+	var shiftBox = $(".container");
 
 	shiftBox.css("overflow", "hidden");
 	shiftBox.animate(hideContentCss, 1000, "linear", function (){
@@ -129,7 +129,7 @@ function collapseConsole (location){
 	$("footer .left").append("<li class='nav'><span class='blink'>_</span></li>");
 
 	var showContentCss = { "height" : "3000px" };
-	var shiftBox = $(".shiftBox");
+	var shiftBox = $(".container");
 
 	shiftBox.animate(showContentCss, 500, "linear", function (){
 

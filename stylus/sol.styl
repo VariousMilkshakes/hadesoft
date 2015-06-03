@@ -1,0 +1,163 @@
+/* CSS styling for home page /index */
+
+/* Global */
+
+/* Page Sections */
+//Title Box
+#title-area
+	height 730px
+	SlightDepth text
+	width 100%
+
+#title-box
+	margin 0 auto
+	width 940px
+
+#title-box
+	h1
+		color white
+		display inline-block
+		height 120px
+		margin 270px auto 0 auto
+		text-align center
+		vertical-align middle
+		width 930px
+
+
+//Projects
+#project-area
+	background-color white
+	height 1050px
+	width 100%
+
+#project-box
+	margin 0 auto
+	padding-top 120px
+	text-align center
+	width 940px
+
+#project-box
+	h2
+		margin 0
+		font-family 'Source Sans Pro'
+
+#project-box
+	h4
+		margin-top 20px
+
+.project-holder
+	display flex
+	flex-wrap wrap
+	width 100%
+	justify-content center
+	clear: both
+
+.project
+	flex-grow 1
+	margin: 0 20px 30px 20px
+	text-align center
+
+$outerSize = 210px
+$bandSize = 15px
+$innerSize = ($outerSize - $bandSize * 2)
+$inactive = #E3E3E3
+
+.outer-circle
+	background-color $inactive
+	border-radius ($outerSize / 2)
+	height $outerSize - $bandSize
+	margin 0 auto
+	padding-top $bandSize
+	text-align center
+	-webkit-transition background-color 2s
+	transition background-color 2s
+	width $outerSize
+
+.inner-circle
+	background-color white
+	border-radius ($innerSize / 2)
+	height $innerSize
+	margin-left $bandSize
+	text-align center
+	width $innerSize
+
+.inner-circle
+	img
+		margin-top 30px
+		max-width 120px
+		z-index 20
+
+.orange-bg:hover .outer-circle,
+.orange-bg:hover .uline::after
+	background-color: #FFA060
+
+.green-bg:hover .outer-circle,
+.green-bg:hover .uline::after
+	background-color: #4EB666
+
+.red-bg:hover .outer-circle,
+.red-bg:hover .uline::after
+	background-color: #E2544F
+
+.blue-bg:hover .outer-circle,
+.blue-bg:hover .uline::after
+	background-color: #7FC9FF
+
+.project-desc
+	width $outerSize
+	margin 20px auto 0 auto
+
+.project-desc h6
+	display inline-block
+
+.project-desc p
+	font-size 0.8em
+
+.uline::after
+	background-color $inactive
+	bottom -5px
+	content ''
+	display block
+	height 3px
+	left 10%
+	margin 0
+	position relative
+	width 80%
+	-webkit-transition background-color 2s
+	transition background-color 2s
+
+
+//Team Area
+#team-area
+	height 620px
+
+#team-box
+	background-color $clot
+	display flex
+	height 100%
+	margin 0 auto
+
+#team-header
+	margin 0 auto
+	display flex
+
+#team-header img
+	background-color transparent
+	height auto
+	flex-basis 300px
+	flex-grow 1
+
+.team-wrap-side
+	background-color $clot
+	height 92px
+	flex-grow 4
+
+.members
+	width 940px
+	margin 80px auto 0 auto
+	display flex
+	justify-content center
+
+.member
+	flex-grow 1
+	text-align center

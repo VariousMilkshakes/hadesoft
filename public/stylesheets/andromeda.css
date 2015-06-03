@@ -1,0 +1,38 @@
+/* CSS styling for sign up /sign-up */
+/* Global */
+#reg-title {
+  color: #fff;
+  font-family: 'Source Sans Pro';
+  margin: 0 auto;
+  text-align: center;
+  width: 400px;
+  text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+}
+-webkit-text-shadow 0px 4px 0px rgba(0,
+0,
+0.4) {
+  -moz-text-shadow: 0px 4px 0px rgba(0,0,0,0.4);
+}
+#feedback {
+  background-color: #993a2d;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+}
+#reg-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+.flex-column {
+  width: 300px;
+  flex-grow: 1;
+  margin: 5px 20px;
+  text-align: left;
+}
+.flex-column label {
+  display: block;
+}

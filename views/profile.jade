@@ -1,20 +1,33 @@
 extends layout
 
+block pageStyle
+	link(rel='stylesheet', type='text/css', href='/stylesheets/sombrero.css')
+
 block content
 	script(src='/socket.io/socket.io.js')
 	script(type='text/javascript' src='/javascripts/profiles.js')
 
-	.centerColumn
-		#profileBox
-			h2.left #{profile.name}
-			div.right#userAvatar
-				img(src='/images/standing.png')
+	h2#profile-title #{profile.name}
+	.center-row
+		#profile-img
+			img(src='/images/standing.png')
+		#profile-box
 			-if(username != profile.name)
 				form.left#interactionMenu
 					input(type='button' value='Add As Friend' onclick='addFriend("#{username}", "#{profile.name}")')
 			-else
-				form.left#interactionMenu
-					div.fileUpload
-						span Choose Avatar
-						input(type='file' accepts='images/*')
-					input.fileSend(type='submit' value='OK')
+				#interactionMenu
+					form.left(enctype='multipart/form-data' action='/uploadFile/avatar' method='post')
+						div.fileUpload
+							span Choose Avatar
+							input(type='file' accepts='images/*')
+						input.fileSend(type='submit' value='OK')
+					form.left(action='/updateUser/password' method='post')
+						label()
+						input#password(type='password')
+		ul#profile-stats
+			li Friends : 999999
+			li Posts : 999999
+			li Likes : 999999
+			li Comments : 99999
+	#deep-info
