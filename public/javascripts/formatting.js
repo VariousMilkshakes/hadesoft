@@ -1,5 +1,9 @@
 $(document).ready(function (){
 	updateBindings();
+
+	$("#f-new-post").on("click", function (){
+		showPostCreator();
+	});
 });
 
 function updateBindings(){
@@ -7,7 +11,7 @@ function updateBindings(){
 		toggleConsole();
 	});
 
-	$(".onlineUser>div").on("click", function (e){
+	$(".online-users>div").on("click", function (e){
 		toggleName(e);
 	});
 }
@@ -177,6 +181,14 @@ function controlTracker (users){
 	}
 
 	updateBindings();
+}
+
+
+function showPostCreator (){
+	var box = "#post-creator";
+	var editor = $(box);
+
+	editor.css("display", "block");
 }
 
 

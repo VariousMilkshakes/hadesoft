@@ -1,0 +1,210 @@
+/* CSS styling for forum and forum preview */
+
+/* Animations */
+A_selectLeft = colorFillLeft
+@keyframes {A_selectLeft}
+    0%
+        border-right-width 8px
+        padding-right 20px
+    33%
+        border-right-width 28px
+        padding-left 20px
+        padding-right 0
+        width 20px
+    66%
+        border-right-width 48px
+        padding-left 20px
+        padding-right 0
+        width 0
+    100%
+        border-right-width 68px
+        padding-left 0
+        padding-right 0
+        width 0
+
+/* Global */
+//Tags
+.tag
+    background-color white
+    color $chalk
+    line-height 50px
+    margin 10px 0
+    padding 0 20px
+    SelectCursor pointer
+    vertical-align middle
+    transition color 0.9s
+    // transition background-color 2s
+    -webkit-transition color 0.9s
+    // -webkit-transition background-color 2s
+    &:hover
+        color white
+        background-color $chalk
+
+.tag-left
+    border-right 8px solid
+
+.tag-right
+    border-left 8px solid
+
+.tag-blue
+    border-color blue
+
+.tag-yellow
+    border-color yellow
+
+.tag-green
+    border-color green
+
+.tag-red
+    border-color red
+
+//Form
+.forum-input
+
+
+#new-post-title
+    background-color $board
+    border 0
+    border-bottom 3px solid $chalk
+    color white
+    display block
+    font-size 1.1em
+    font-family 'Inconsolata'
+    width 100%
+
+#new-post-content
+    background-color $board
+    color white
+    display block
+    height 500px
+    width 100%
+
+
+//Forum Elements
+#f-column
+    background-color $clot
+    flex-grow 5
+    overflow-y auto
+    .post
+        background-color $board
+        height 80px
+        margin 5px 20px
+        padding 5px 10px
+
+#f-controls
+    border-top 10px solid $clot
+    list-style none
+    padding 0
+    flex-basis 150px
+    li
+        background-color $sandBlast
+        clear both
+        display inline-block
+        float left
+        line-height 50px
+        margin 10px 0
+        SelectCursor pointer
+        text-align center
+        transition border-left 0.3s
+        -webkit-transition border-left 0.3s
+        vertical-align middle
+        width 50px
+        &:hover
+            border-left  8px solid white
+        &:active
+            background-color white
+            border-left  8px solid $sandBlast
+            color $sandBlast
+
+#post-holder
+    margin 15px 0
+    // display none
+
+#post-creator
+    background-color $board
+    display none
+    height 500px
+    margin 0 20px
+    padding 5px 10px
+    z-index 10
+
+#post-viewer
+    background-color $board
+    display none
+    height 500px
+    margin 0 20px
+    padding 5px 10px
+
+
+// Online user bar
+.online-users
+    bottom 0
+    height 45px
+    opacity 0.5
+    position fixed
+    transition opacity 1s
+    -webkit-transition opacity 1s
+    &:hover
+        opacity 1
+    div
+        display inline-block
+        float left
+        height 45px
+        SelectCursor pointer
+        img
+            display inline
+            height 45px
+        a
+            display none
+            line-height 45px
+            padding-right 10px
+            vertical-align top
+    div:nth-child(4n)
+        background-color:  #FFA060;
+    div:nth-child(4n+1)
+        background-color:  #4EB666;
+    div:nth-child(4n+2)
+        background-color:  #E2544F;
+    div:nth-child(4n+3)
+        background-color:  #7FC9FF;
+
+
+/* Forum Preview /index */
+#forum-preview
+    box-shadow 0 4px 0 0 rgba(0,0,0,0.4)
+    header
+        background-color $board
+        height 60px
+        padding 10px 0
+
+    #title
+        color white
+        margin 0 auto
+        width 200px
+
+    #window
+        color white
+        display flex
+        height 600px
+        overflow hidden
+        position relative
+
+    #f-trending
+        border-top 10px solid $clot
+        flex-basis 120px
+        flex-grow 0.6
+        list-style none
+        li
+            font-size 0.6em
+
+    #f-new-post
+        border-color $sandBlast
+        bottom 50px
+        margin 0
+        left 0
+        overflow hidden
+        position absolute
+        width 20px
+        &:active
+            animation A_selectLeft 0.2s forwards
+            -webkit-animation A_selectLeft 0.2s forwards

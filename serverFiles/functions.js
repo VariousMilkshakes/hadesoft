@@ -49,7 +49,7 @@ exports.localReg = function (username, password, email){
 				console.log(">>>Failed to add user: " + err.body);
 				deferred.reject(new Error(err.body));
 			});
-		} else { 
+		} else {
 			deferred.reject(new Error(result.body));
 		}
 	});

@@ -176,7 +176,7 @@ app.get('/', function(req, res) {
     });
 });
 
-app.get('/user/profile/:user', function (req, res){
+app.get('/user/:user/profile', function (req, res){
     var currentUser = req.user;
     console.log(currentUser);
     if (currentUser != undefined) {

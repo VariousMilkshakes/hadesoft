@@ -2,6 +2,7 @@ extends layout
 
 block pageStyle
 	link(rel='stylesheet', type='text/css', href='/stylesheets/sol.css')
+	link(rel='stylesheet', type='text/css', href='/stylesheets/pulsar.css')
 
 block content
 	-if (error || success || notice)
@@ -9,39 +10,10 @@ block content
 			h6 #{error}
 			h6 #{success}
 			h6 #{notice}
-	script(src='/socket.io/socket.io.js')
-	-if (user && user.valid)
-		script(type='text/javascript').
-			var socket = io.connect("http://82.37.178.154:8765");
-			var username = !{JSON.stringify(user.name)};
-			if (username != '') {
-				console.log('Requesting Users');
-				socket.emit('currentUser', username);
-				var userUpdate = setInterval(function (){
-					console.log('Requesting Users');
-					socket.emit('currentUser', username);
-				}, 10000);
-			}
-			socket.on("sendCurrentUsers", function (users){
-				console.log("Recieveing sduu");
-				controlTracker(users);
-			});
-		#forum-area
-			header
-				h2 FORUM
-			section.forumLocation
-				a(href='/forum').note HOME
-			section.forumBox
 
-			section.onlineUser
-				div#currentUser
-					img(src='#{user.avatar}'  alt='#{user.name}')
-					a(href='/user/profile/#{user.name}') #{user.name}
-
-	-else
-		#title-area
-			#title-box
-				h1 #{titleMessage}
+	#title-area
+		#title-box
+			h1 #{titleMessage}
 
 	#project-area
 		#project-box
@@ -76,7 +48,92 @@ block content
 				section.project-desc
 					h6.uline HadeSoft
 					p Hades Broadband software and Website Development hub.
-
+	
+	-if (user && user.valid)
+		script(src='/socket.io/socket.io.js')
+		script(type='text/javascript').
+			var socket = io.connect("http://82.37.178.154:8765");
+			var username = !{JSON.stringify(user.name)};
+			if (username != '') {
+				console.log('Requesting Users');
+				socket.emit('currentUser', username);
+				var userUpdate = setInterval(function (){
+					console.log('Requesting Users');
+					socket.emit('currentUser', username);
+				}, 10000);
+			}
+			socket.on("sendCurrentUsers", function (users){
+				console.log("Recieveing sduu");
+				controlTracker(users);
+			});
+		#forum-preview
+			header
+				h3#title
+					a(href='/forum') FORUM
+			section#window
+				ul#f-controls
+					li#top-posts
+						i.fa.fa-line-chart
+					li#new-posts
+						i.fa.fa-calendar
+					li#user-posts
+						i.fa.fa-flag-o
+				#f-column
+					#post-creator
+						form.forum-input(action='/user/#{user.name}/newPost' method='post')
+							input#new-post-title(type="text" placeholder='Title')
+							label(for='new-post-format') Format:
+							input#new-post-text(type="radio" name='format' value='text')
+							label(for='new-post-text') Plain Text
+							input#new-post-html(type="radio" name='format' value='html')
+							label(for='new-post-html') HTML
+							textarea#new-post-content(name="postContent", cols="30", rows="10" placeholder='Your Post')
+							input(type="submit")
+					#post-holder
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+						.post 
+							h6#post-header
+								a(href='/forum/post/2e8yh11he90h') This cool thing
+					#post-viewer
+				ul#f-trending
+					li.tag.tag-right.tag-blue new post
+					li.tag.tag-right.tag-yellow activity
+					li.tag.tag-right.tag-yellow activity
+					li.tag.tag-right.tag-green friend liked
+					li.tag.tag-right.tag-blue new post
+					li.tag.tag-right.tag-red cool
+					li.tag.tag-right.tag-green friend liked
+				h3.tag.tag-left#f-new-post +
+			section.online-users
+				div#currentUser
+					img(src='#{user.avatar}'  alt='#{user.name}')
+					a(href='/user/#{user.name}/profile') #{user.name}
 	#team-area
 		header#team-header
 			.team-wrap-side
