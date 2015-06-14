@@ -1,5 +1,6 @@
 var nodemailer = require('nodemailer');
 var Q = require('q');
+var recaptcha = require('node-recaptcha');
 
 var config = require('../serverFiles/config.js');
 var mOps = config.mail;
@@ -83,6 +84,48 @@ exports.verify = function (vID, username){
 		console.log(">>>>User: " + username + " could not be found!");
 		console.log(err);
 		defer.reject("Your account could not be found!");
+	});
+
+	return defer.promise;
+};
+
+exports.checkUnique = function (username, checkEmail, email){
+	console.log(">>>> Checking info")
+	var defer = Q.defer();
+	var query = username;
+
+	if (checkEmail) {
+		query += email;
+	}
+
+	db.search(config.dbLocal, query)
+	.then(function (result){
+		console.log(result.body);
+		if (results.body.count == 0) {
+			defer.resolve("Username and password not in use!");
+		} else {
+			defer.reject(new Error("Username or Password in use, please try something different."));
+		}
+	})
+	.fail(function (err){
+		defer.reject(new Error (err));
+	});
+
+	return defer.promise;
+};
+
+exports.recaptcha = function(req){
+	var defer = Q.defer();
+
+	recaptcha.privateKey = config.dev.privateKey;
+
+	recaptcha.verify('<Remote address>', '<challenge>', '<response>', function (err){
+		if (err) {
+			console.log(err);
+			defer.reject(new Error(err));
+		} else {
+			defer.resolve("Captcha correct!");
+		}
 	});
 
 	return defer.promise;

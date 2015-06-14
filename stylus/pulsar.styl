@@ -37,14 +37,23 @@ A_selectLeft = colorFillLeft
     -webkit-transition color 0.9s
     // -webkit-transition background-color 2s
     &:hover
-        color white
         background-color $chalk
+        border 0
+        color white
 
 .tag-left
     border-right 8px solid
+    transition margin-right 0.3s
+    -webkit-transition margin-right 0.3s
+    &:hover
+        margin-right 8px
 
 .tag-right
     border-left 8px solid
+    transition margin-left 0.3s
+    -webkit-transition margin-left 0.3s
+    &:hover
+        margin-left 8px
 
 .tag-blue
     border-color blue
@@ -63,21 +72,26 @@ A_selectLeft = colorFillLeft
 
 
 #new-post-title
-    background-color $board
+    background-color transparent
     border 0
     border-bottom 3px solid $chalk
     color white
     display block
     font-size 1.1em
     font-family 'Inconsolata'
-    width 100%
+    margin 0 auto
+    width 98%
 
 #new-post-content
-    background-color $board
+    background-color transparent
+    border 0
     color white
     display block
-    height 500px
-    width 100%
+    height 300px
+    margin 10px auto
+    padding 10px
+    resize none
+    width 98%
 
 
 //Forum Elements
@@ -118,14 +132,14 @@ A_selectLeft = colorFillLeft
 
 #post-holder
     margin 15px 0
-    // display none
+    .post-header
+        SelectCursor pointer
 
 #post-creator
     background-color $board
     display none
     height 500px
     margin 0 20px
-    padding 5px 10px
     z-index 10
 
 #post-viewer
@@ -205,6 +219,3 @@ A_selectLeft = colorFillLeft
         overflow hidden
         position absolute
         width 20px
-        &:active
-            animation A_selectLeft 0.2s forwards
-            -webkit-animation A_selectLeft 0.2s forwards

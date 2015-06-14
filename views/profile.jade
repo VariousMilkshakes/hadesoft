@@ -13,8 +13,13 @@ block content
 			img(src='/images/standing.png')
 		#profile-box
 			-if(username != profile.name)
-				form.left#interactionMenu
-					input(type='button' value='Add As Friend' onclick='addFriend("#{username}", "#{profile.name}")')
+				-var friend = false
+				-for(each in friendsList)
+					-if(friendsList[each] == profile.name)
+						-friend = true
+				-if(!friend)
+					form.left#interactionMenu
+						input(type='button' value='Add As Friend' onclick='addFriend("#{username}", "#{profile.name}")')
 			-else
 				#interactionMenu
 					form.left(enctype='multipart/form-data' action='/uploadFile/avatar' method='post')

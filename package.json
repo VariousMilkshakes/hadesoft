@@ -36,6 +36,7 @@
     "express-session": "^1.8.2",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
+    "passport-req": "0.1.1",
     "passport-google": "^0.3.0",
     "q": "^1.0.1",
     "orchestrate": "^0.3.11",
@@ -43,7 +44,8 @@
     "date-format": "0.0.2",
     "socket.io": "1.3.5",
     "multer": "~0.1.8",
-    "stylus": "*"
+    "stylus": "*",
+    "node-recaptcha": "*"
   },
   "devDependencies": {},
   "bundleDependencies": [],

@@ -132,13 +132,11 @@
 }
 #team-header img {
   background-color: transparent;
-  height: auto;
+  height: 78px;
   flex-basis: 300px;
-  flex-grow: 1;
 }
 .team-wrap-side {
   background-color: #993a2d;
-  height: 92px;
   flex-grow: 4;
 }
 .members {

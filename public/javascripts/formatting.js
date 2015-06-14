@@ -2,7 +2,11 @@ $(document).ready(function (){
 	updateBindings();
 
 	$("#f-new-post").on("click", function (){
-		showPostCreator();
+		if (panelOpen){
+			showForum("stack");
+		}else{
+			showForum("creator");
+		}
 	});
 });
 
@@ -13,6 +17,12 @@ function updateBindings(){
 
 	$(".online-users>div").on("click", function (e){
 		toggleName(e);
+	});
+
+	$(".post-header").on("click", function (e){
+		var parent = $(e.target).parent().attr('id');
+		console.log(parent);
+		socket.emit("getPost", parent);
 	});
 }
 
@@ -57,7 +67,7 @@ function typeOut (){
 	var menuOptions = sizeOf(menuContent);
 	var currentOption = 0;
 	var currentX = 0;
-	
+
 	var typeSpeed = window.setInterval( function (){
 		var count = currentOption;
 
@@ -112,9 +122,9 @@ function closeConsole (e){
 		collapseConsole();
 	} else {
 		chosenOption = chosenOption + '*';
-		
+
 		$.each(menuContent, function(i, v){
-			
+
 			if (v["name"] == chosenOption) {
 				var target = v["target"];
 
@@ -169,28 +179,18 @@ function toggleName (e){
 var lostFolk = [];
 
 // Add and Remove active users from tacker
-function controlTracker (users){
-	var holder = $(".onlineUser");
-	holder.html("<div id='currentUser'><img src='./images/standing.png' alt='a'><a href='/user/profile/a'>a</a></div>");
+function controlTracker (users, user){
+	var holder = $(".online-users");
+	var html = "<div id='currentUser'><img src='./images/standing.png' alt='a'><a href='/user/" + user + "/profile/'>a</a></div>";
 
 	for(each in users) {
 		var contact = users[each].value;
-		var contactHtml = "<div><img src='" + contact.avatar + "' alt='" + contact.name + "'></img>" +
-							"<a href='/user/profile/" + contact.name + "'>" + contact.name + "</a></div>";
-		holder.append(contactHtml);
+		html = html + "<div><img src='" + contact.avatar + "' alt='" + contact.name + "'></img>" + "<a href='/user/" + contact.name + "/profile'>" + contact.name + "</a></div>";
 	}
 
+	holder.html(html);
 	updateBindings();
 }
-
-
-function showPostCreator (){
-	var box = "#post-creator";
-	var editor = $(box);
-
-	editor.css("display", "block");
-}
-
 
 
 function sizeOf (obj){
@@ -204,7 +204,7 @@ function sizeOf (obj){
 
             size += 1;
         }
-    }   
+    }
 
     return size;
 }

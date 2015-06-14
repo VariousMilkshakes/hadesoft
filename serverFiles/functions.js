@@ -13,25 +13,20 @@ exports.localReg = function (username, password, email){
 	var deferred = Q.defer();
 	var hash = bcrypt.hashSync(password, 8);
 
-	db.get(config.dbLocal, username)
+	validate.checkUnique(username, true, email)
 	.then(function (result){
-		console.log(">>>Sign up with existing username: " + username);
-		deferred.resolve(false);
-	})
-	.fail(function (result){
-
 		var vID = validate.email(email, username);
-		var time = new Date();
-		var ISO8601B = dateFormat.asString('yyyyMMddThhmmssZ');
+		var date = exports.currentISTime();
 
 		var user = {
 			"name" : username,
 			"password" : hash,
 			"email" : email,
 			"valid" : false,
-			"start" : ISO8601B,
+			"start" : date,
 			"validationID" : vID,
-			"avatar" : config.defaultAvatar
+			"avatar" : config.defaultAvatar,
+			"friends" : []
 		};
 
 		console.log(">>>New user sign up: " + username);
@@ -52,6 +47,10 @@ exports.localReg = function (username, password, email){
 		} else {
 			deferred.reject(new Error(result.body));
 		}
+	})
+	.fail(function (result){
+		console.log(">>>Sign up with existing username: " + username);
+		deferred.resolve(false);
 	});
 
 	return deferred.promise;
@@ -85,23 +84,23 @@ exports.localAuth = function (username, password){
 	});
 
 	return deferred.promise;
-}
+};
 
 exports.sleepAllUsers = function (){
 	db.deleteCollection(config.dbOnline);
 	console.log(">>>ALL ONLINE USERS HAVE BEEN CLEARED");
-}
+};
 
 exports.activateUser = function (user){
 	var id = user.name;
 	var avatar = user.avatar;
 	var time = new Date();
-	var ISO8601B = dateFormat.asString('yyyyMMddThhmmssZ');
+	var date = exports.currentISTime();
 
 	var activeUser = {
 		"name" : id,
 		"avatar" : avatar,
-		"activeSince" : ISO8601B
+		"activeSince" : date
 	};
 
 	db.put(config.dbOnline, id, activeUser)
@@ -112,7 +111,7 @@ exports.activateUser = function (user){
 		console.log(">>>Failed to add " + id + " to active users");
 		console.log(">>>" + error);
 	});
-}
+};
 
 exports.sleepUser = function (user){
 	db.remove(config.dbOnline, user)
@@ -123,7 +122,7 @@ exports.sleepUser = function (user){
 		console.log(">>>" + user + " could not be made inactive!");
 		console.log(error);
 	})
-}
+};
 
 exports.getActiveUsers = function (user){
 	var defer = Q.defer();
@@ -147,7 +146,27 @@ exports.getActiveUsers = function (user){
 	}
 
 	return defer.promise;
-}
+};
+
+exports.currentISTime = function (debug){
+	var time = new Date();
+	var ISO8601B = dateFormat.asString('yyyyMMddTHhmmss.SSSZ', time);
+	if (debug){
+		console.log(ISO8601B);
+	}
+	return ISO8601B;
+};
+
+exports.logActivity = function (username, action, log){
+	db.newEventBuilder()
+	.from('local-users', username)
+	.type(action)
+	.data(log)
+	.create()
+	.then(function (res){
+		console.log("%= " + res.statusCode);
+	});
+};
 
 /////////////////////////////////////////////////////////////////////////////////ADD FRIENDS TO ARRAY!!!!
 exports.addUserToFriends = function (target, friend){
@@ -165,10 +184,9 @@ exports.addUserToFriends = function (target, friend){
 //Multer
 exports.renameFile = function (fieldname, filename, req, res){
 	var username = req.user.name;
-	var time = new Date();
-	var ISO8601B = dateFormat.asString('yyyyMMddThhmmss.SSSZ');
+	var date = exports.currentISTime();
 
-	return username + ISO8601B;
+	return username + date;
 };
 
 exports.sortFiles = function (dest, req, res){

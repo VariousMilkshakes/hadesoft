@@ -1,12 +1,13 @@
 extends layout
 
 block pageStyle
+	script(type='text/javascript' src='/javascripts/forumControl.js')
 	link(rel='stylesheet', type='text/css', href='/stylesheets/sol.css')
 	link(rel='stylesheet', type='text/css', href='/stylesheets/pulsar.css')
 
 block content
 	-if (error || success || notice)
-		.reportArea
+		#report-area
 			h6 #{error}
 			h6 #{success}
 			h6 #{notice}
@@ -50,10 +51,11 @@ block content
 					p Hades Broadband software and Website Development hub.
 	
 	-if (user && user.valid)
-		script(src='/socket.io/socket.io.js')
+		script(src='https://cdn.socket.io/socket.io-1.0.6.js')
 		script(type='text/javascript').
 			var socket = io.connect("http://82.37.178.154:8765");
 			var username = !{JSON.stringify(user.name)};
+			
 			if (username != '') {
 				console.log('Requesting Users');
 				socket.emit('currentUser', username);
@@ -62,10 +64,22 @@ block content
 					socket.emit('currentUser', username);
 				}, 10000);
 			}
+			
 			socket.on("sendCurrentUsers", function (users){
 				console.log("Recieveing sduu");
-				controlTracker(users);
+				controlTracker(users, username);
 			});
+			
+			socket.on('sendPosts', function (posts){
+				console.log("POSOSOTS")
+				displayPosts(posts);
+			});
+			
+			socket.on('viewPost', function (postObj){
+				viewPost(postObj);
+			});
+			
+			forumPosts('*');
 		#forum-preview
 			header
 				h3#title
@@ -80,8 +94,8 @@ block content
 						i.fa.fa-flag-o
 				#f-column
 					#post-creator
-						form.forum-input(action='/user/#{user.name}/newPost' method='post')
-							input#new-post-title(type="text" placeholder='Title')
+						form.forum-input(action='/forum/new_post' method='post')
+							input#new-post-title(type="text" placeholder='Title' name='title')
 							label(for='new-post-format') Format:
 							input#new-post-text(type="radio" name='format' value='text')
 							label(for='new-post-text') Plain Text
@@ -90,36 +104,6 @@ block content
 							textarea#new-post-content(name="postContent", cols="30", rows="10" placeholder='Your Post')
 							input(type="submit")
 					#post-holder
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
-						.post 
-							h6#post-header
-								a(href='/forum/post/2e8yh11he90h') This cool thing
 					#post-viewer
 				ul#f-trending
 					li.tag.tag-right.tag-blue new post
