@@ -8,6 +8,7 @@ var bodyParser       = require('body-parser');
 var session          = require('express-session');
 var passport         = require('passport');
 var multer           = require('multer');
+var nyx              = require('D:/HadeSoft/home_website/prototype/NYXml');
 
 var config   = require('./serverFiles/config.js');
 var controls = require('./serverFiles/functions.js');
@@ -24,6 +25,7 @@ io.set('origins', 'http://82.37.178.154:8765');
 
 // Clear all online users
 controls.sleepAllUsers();
+nyx.convert();
 
 //View engine setup
 app.set('views', path.join(__dirname, 'views'));
