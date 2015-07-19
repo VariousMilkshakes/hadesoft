@@ -4,6 +4,7 @@ var styx = require('../forumFiles/styx.js');
 
 var dateFormat = require('date-format');
 var router = require('express').Router();
+var nyx = require('nyxml');
 
 var dbConnection = require('orchestrate');
 dbConnection.ApiEndPoint = "api.ctl-gb3-a.orchestrate.io";
@@ -25,6 +26,18 @@ router.post('/forum/new_post', function (req, res, next){
         "content": title,
         "date": date
     };
+
+    if (postFormat == "NYX") {
+        nyx.toHtml(post, true)
+        .then(function (result){
+            console.log(result);
+            post = result;
+            
+        })
+        .fail(function (error){
+            console.log(error);
+        });
+    }
 
     db.put(config.dbForum, key, {
         "key": key,
